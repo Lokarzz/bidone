@@ -57,6 +57,9 @@ class AndroidCommonConventionPlugin : Plugin<Project> {
         implementation(libs.androidx.compose.material3)
         implementation(libs.androidx.compose.material.icons.core)
         implementation(libs.kotlinx.coroutines.android)
+        implementation(platform(libs.coil.bom))
+        implementation(libs.coil.compose)
+        implementation(libs.coil.network.okhttp)
 
 
         debugImplementation(libs.androidx.compose.ui.tooling)

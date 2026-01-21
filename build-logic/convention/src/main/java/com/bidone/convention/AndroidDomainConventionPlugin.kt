@@ -51,6 +51,9 @@ class AndroidDomainConventionPlugin : Plugin<Project> {
         testImplementation(libs.junit)
         testImplementation(libs.kotlinx.coroutines.test)
 
+        implementation(libs.retrofit)
+        implementation(libs.converter.gson)
+
     }
     private fun Project.android(block: LibraryExtension.() -> Unit) {
         libraryExtension().apply(block)

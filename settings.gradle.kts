@@ -21,4 +21,10 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "bidtest"
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
 include(":app")
+include(":core:domain")
+include(":core:data")
+include(":feature:products")
+include(":core:common")
