@@ -1,0 +1,91 @@
+package com.bidone.convention
+
+import com.android.build.gradle.internal.dsl.BaseAppModuleExtension
+import com.bidone.convention.extensions.alias
+import com.bidone.convention.extensions.androidTestImplementation
+import com.bidone.convention.extensions.applyCompileOptions
+import com.bidone.convention.extensions.applyDefaultConfiguration
+import com.bidone.convention.extensions.applyKotlinJvmCompilerOptions
+import com.bidone.convention.extensions.baseAppModuleExtension
+import com.bidone.convention.extensions.debugImplementation
+import com.bidone.convention.extensions.implementation
+import com.bidone.convention.extensions.kotlinOptions
+import com.bidone.convention.extensions.libs
+import com.bidone.convention.extensions.testImplementation
+import org.gradle.accessors.dm.LibrariesForLibs
+import org.gradle.api.Plugin
+import org.gradle.api.Project
+import org.gradle.internal.Actions.with
+import org.gradle.kotlin.dsl.DependencyHandlerScope
+import org.gradle.kotlin.dsl.dependencies
+
+class AndroidApplicationConventionPlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        with(project) {
+            val libs = libs()
+
+            applyPlugins(libs)
+
+            android {
+                compileSdk = libs.versions.compileSdk.get().toInt()
+                defaultConfig {
+                    applyDefaultConfiguration(libs)
+                    targetSdk = libs.versions.targetSdk.get().toInt()
+
+                }
+
+                compileOptions {
+                    applyCompileOptions(libs)
+                }
+
+                kotlinOptions {
+                    applyKotlinJvmCompilerOptions(libs)
+                }
+
+            }
+
+            dependencies {
+                applyDependencies(libs)
+            }
+
+
+        }
+    }
+
+    private fun Project.android(block: BaseAppModuleExtension.() -> Unit) {
+        baseAppModuleExtension().apply(block)
+    }
+
+    private fun Project.applyPlugins(libs: LibrariesForLibs) {
+        alias(plugin = libs.plugins.android.application)
+        alias(plugin = libs.plugins.kotlin.android)
+        alias(libs.plugins.kotlin.compose)
+        alias(libs.plugins.bidone.convention.android.hilt)
+    }
+
+    private fun DependencyHandlerScope.applyDependencies(libs: LibrariesForLibs) {
+
+        implementation(libs.androidx.core.ktx)
+        implementation(libs.androidx.lifecycle.runtime.ktx)
+        implementation(libs.androidx.activity.compose)
+        implementation(platform(libs.androidx.compose.bom))
+        implementation(libs.androidx.compose.ui)
+        implementation(libs.androidx.compose.ui.graphics)
+        implementation(libs.androidx.compose.ui.tooling.preview)
+        implementation(libs.androidx.compose.material3)
+
+        androidTestImplementation(platform(libs.androidx.compose.bom))
+        androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+        debugImplementation(libs.androidx.compose.ui.tooling)
+        debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+        implementation(libs.kotlinx.coroutines.android)
+        implementation(libs.androidx.navigation.compose)
+
+        testImplementation(libs.junit)
+        androidTestImplementation(libs.androidx.junit)
+        androidTestImplementation(libs.androidx.espresso.core)
+
+
+    }
+}
