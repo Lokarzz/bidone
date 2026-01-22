@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="product_banner_image">Product Banner Image</string>
+    <string name="shopping_cart">Shopping cart</string>
 </resources>

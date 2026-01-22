@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="product_item_image">Product Item Image</string>
+    <string name="on_back_press">On back press</string>
 </resources>

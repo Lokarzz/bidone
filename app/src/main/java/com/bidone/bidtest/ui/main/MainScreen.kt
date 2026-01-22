@@ -29,7 +29,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
                 onItemPress = navController::toProductDetailsScreen,
                 innerPadding = innerPadding
             )
-            productDetailsScreen(modifier = Modifier, innerPadding = innerPadding)
+            productDetailsScreen(
+                innerPadding = innerPadding,
+                onBackPress = navController::popBackStack
+            )
         }
     }
 }

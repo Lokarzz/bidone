@@ -9,6 +9,8 @@ data class ProductDetailsUI(
     val shortDescription: String,
     val bannerImage: String,
     val image: String,
+    val price: Float,
+    val likes: Int
 )
 
 fun ProductDetailsResponse.toUI(): ProductDetailsUI {
@@ -18,6 +20,8 @@ fun ProductDetailsResponse.toUI(): ProductDetailsUI {
         longDescription = description,
         shortDescription = shortDescription,
         bannerImage = portraitImage,
-        image = image
+        image = image,
+        price = price,
+        likes = likeCount
     )
 }
