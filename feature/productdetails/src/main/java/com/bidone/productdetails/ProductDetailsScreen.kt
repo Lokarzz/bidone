@@ -16,10 +16,12 @@ import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
@@ -31,10 +33,12 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.bidone.common.composables.image.AppImage
 import com.bidone.common.preview.DevicePreviews
+import com.bidone.common.util.context.showToast
 import com.bidone.domain.model.apistate.APIState
 import com.bidone.domain.model.product.ProductDetailsUI
 import com.bidone.domain.usecase.productdetails.ProductDetailsUseCase
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.Serializable
 
@@ -61,48 +65,78 @@ internal fun ProductDetailsScreen(
     productsViewModel: ProductDetailsViewModel = hiltViewModel()
 ) {
     val uiState by productsViewModel.uiState.collectAsStateWithLifecycle()
-    LazyColumn(
-        modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)
-    ) {
-        when (val productDetailsAPIState = uiState.productDetailsAPIState) {
-            is APIState.Error -> {}
-            APIState.Idle -> {}
-            APIState.Loading -> {
-                item {
-                    Box(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = innerPadding.calculateTopPadding()),
-                        contentAlignment = Alignment.Center
 
-                    ) {
-                        CircularProgressIndicator(modifier = Modifier)
-                    }
-                }
+    ProductDetailsLaunchEffect(effect = productsViewModel.effect)
+    Box(modifier = Modifier) {
+        LazyColumn(
+            modifier = modifier, verticalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            when (val productDetailsAPIState = uiState.productDetailsAPIState) {
+                is APIState.Error -> {}
+                APIState.Idle -> {}
+                APIState.Loading -> loadingItem(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(top = innerPadding.calculateTopPadding())
+                )
+
+                is APIState.Success -> productDetails(
+                    productDetailsAPIState.data, innerPadding = innerPadding
+                )
             }
-
-            is APIState.Success -> productDetails(productDetailsAPIState.data)
-        }
-        item {
-            Spacer(modifier = Modifier.size(innerPadding.calculateBottomPadding()))
+            item {
+                Spacer(modifier = Modifier.size(innerPadding.calculateBottomPadding()))
+            }
         }
     }
 }
 
-private fun LazyListScope.productDetails(productDetailsUI: ProductDetailsUI) {
+private fun LazyListScope.loadingItem(modifier: Modifier = Modifier) {
     item {
-        ElevatedCard(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(16 / 9f)
+        Box(
+            modifier = Modifier,
+            contentAlignment = Alignment.Center
+
         ) {
-            AppImage(
-                modifier = Modifier.fillMaxSize(),
-                image = productDetailsUI.bannerImage,
-                contentDescription = stringResource(R.string.product_banner_image),
-                contentScale = ContentScale.Crop
-            )
+            CircularProgressIndicator(modifier = Modifier)
         }
+    }
+}
+
+@Composable
+private fun ProductDetailsLaunchEffect(effect: SharedFlow<ProductDetailsEffect>) {
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        effect.collect {
+            when (it) {
+                is ProductDetailsEffect.OnError -> {
+                    context.showToast(it.message)
+                }
+            }
+        }
+    }
+}
+
+
+private fun LazyListScope.productDetails(
+    productDetailsUI: ProductDetailsUI, innerPadding: PaddingValues
+) {
+    item {
+        Box(modifier = Modifier) {
+            ElevatedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(16 / 9f)
+            ) {
+                AppImage(
+                    modifier = Modifier.fillMaxSize(),
+                    image = productDetailsUI.bannerImage,
+                    contentDescription = stringResource(R.string.product_banner_image),
+                    contentScale = ContentScale.Crop
+                )
+            }
+        }
+
     }
     item {
         Text(
@@ -137,6 +171,8 @@ private fun Preivew() {
                                     name = "Product Name",
                                     longDescription = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s ",
                                     bannerImage = "",
+                                    shortDescription = "asdf",
+                                    image = "asdf"
                                 )
                             )
                         )

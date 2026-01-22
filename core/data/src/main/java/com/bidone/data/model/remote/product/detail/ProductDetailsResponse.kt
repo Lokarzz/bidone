@@ -7,7 +7,10 @@ data class ProductDetailsResponse(
     val id: String,
     val title: String,
     val description: String,
+    val shortDescription: String,
     val portraitImage: String,
+    val bannerImage: String,
+    val image : String,
     val price: Float,
     val likeCount: Int
 )
