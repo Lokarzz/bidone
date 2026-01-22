@@ -1,11 +1,70 @@
 {
-  "posts": [
+  "products": [
     {
       "id": 1,
-      "title": "hello"
+      "title": "Wireless Headphones",
+      "shortDescription": "Over-ear noise cancelling",
+      "description": "Premium wireless headphones with deep bass and active noise cancellation.",
+      "image": "https://picsum.photos/id/237/600/600",
+      "bannerImage": "https://picsum.photos/id/237/1600/400",
+      "portraitImage": "https://picsum.photos/id/237/450/750",
+      "price": 99.99,
+      "likeCount": 120
+    },
+    {
+      "id": 2,
+      "title": "Smart Watch",
+      "shortDescription": "Fitness & health tracking",
+      "description": "Smartwatch with heart-rate tracking, GPS, and notifications.",
+      "image": "https://picsum.photos/id/238/600/600",
+      "bannerImage": "https://picsum.photos/id/238/1600/400",
+      "portraitImage": "https://picsum.photos/id/238/450/750",
+      "price": 149.99,
+      "likeCount": 98
+    },
+    {
+      "id": 3,
+      "title": "Bluetooth Speaker",
+      "shortDescription": "Portable powerful sound",
+      "description": "Compact Bluetooth speaker with rich sound and long battery life.",
+      "image": "https://picsum.photos/id/239/600/600",
+      "bannerImage": "https://picsum.photos/id/239/1600/400",
+      "portraitImage": "https://picsum.photos/id/239/450/750",
+      "price": 59.99,
+      "likeCount": 75
+    },
+    {
+      "id": 4,
+      "title": "Gaming Mouse",
+      "shortDescription": "RGB precision mouse",
+      "description": "High DPI gaming mouse designed for accuracy and comfort.",
+      "image": "https://picsum.photos/id/240/600/600",
+      "bannerImage": "https://picsum.photos/id/240/1600/400",
+      "portraitImage": "https://picsum.photos/id/240/450/750",
+      "price": 39.99,
+      "likeCount": 64
+    },
+    {
+      "id": 5,
+      "title": "Mechanical Keyboard",
+      "shortDescription": "Tactile RGB keyboard",
+      "description": "Mechanical keyboard with customizable RGB lighting.",
+      "image": "https://picsum.photos/id/241/600/600",
+      "bannerImage": "https://picsum.photos/id/241/1600/400",
+      "portraitImage": "https://picsum.photos/id/241/450/750",
+      "price": 89.99,
+      "likeCount": 110
+    },
+    {
+      "id": 20,
+      "title": "Smart Doorbell",
+      "shortDescription": "Video doorbell",
+      "description": "Monitor visitors with live video and alerts.",
+      "image": "https://picsum.photos/id/256/600/600",
+      "bannerImage": "https://picsum.photos/id/256/1600/400",
+      "portraitImage": "https://picsum.photos/id/256/450/750",
+      "price": 159.99,
+      "likeCount": 102
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }
