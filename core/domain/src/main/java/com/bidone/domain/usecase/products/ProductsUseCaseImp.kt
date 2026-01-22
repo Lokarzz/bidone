@@ -1,29 +1,27 @@
 package com.bidone.domain.usecase.products
 
+import com.bidone.data.repository.remote.products.ProductsRepository
+import com.bidone.data.util.Result
 import com.bidone.domain.model.apistate.APIState
 import com.bidone.domain.model.product.ProductUI
+import com.bidone.domain.model.product.toUI
 import com.bidone.domain.util.flow.applyDefaultState
-import kotlinx.coroutines.delay
+import com.bidone.domain.util.throwable.handleError
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
-internal class ProductsUseCaseImp @Inject constructor() : ProductsUseCase {
-
-    val previewProducts = (0..20).map {
-        ProductUI(
-            id = it.toString(),
-            name = "Product $it",
-            shortDescription = "Short Description $it",
-            image = ""
-        )
-    }
+internal class ProductsUseCaseImp @Inject constructor(private val productsRepository: ProductsRepository) :
+    ProductsUseCase {
 
     override fun invoke(): Flow<APIState<List<ProductUI>>> {
         return flow {
-            delay(2500)
-            emit(APIState.Success(previewProducts))
+            when (val result = productsRepository.getProducts()) {
+                is Result.Failure -> emit(APIState.Error(result.error.handleError()))
+                is Result.Success -> emit(APIState.Success(result.value.toUI()))
+            }
         }.applyDefaultState()
     }
+
 
 }

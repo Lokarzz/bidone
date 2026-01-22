@@ -78,7 +78,8 @@ private fun LazyListScope.productItems(products: List<ProductUI>, onItemPress: (
                 .clickable(onClick = { onItemPress(it.id) }),
             image = it.image,
             title = it.name,
-            body = it.shortDescription
+            body = it.shortDescription,
+            price = it.price
         )
     }
 }
@@ -100,6 +101,7 @@ private fun Preview() {
                             name = "Product $it",
                             image = "",
                             shortDescription = "Short description $it",
+                            price = 99f
                         )
                     }
                     return flow { emit(APIState.Success(productsPreview)) }

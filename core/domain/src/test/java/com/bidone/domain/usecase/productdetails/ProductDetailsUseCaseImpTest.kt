@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalCoroutinesApi::class)
 
-package com.bidone.domain.usecase.products
+package com.bidone.domain.usecase.productdetails
 
 import com.bidone.domain.model.apistate.APIState
 import com.bidone.domain.usecase.repository.FailFakeRepository
@@ -18,13 +18,11 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class ProductsUseCaseImpTest {
-
+class ProductDetailsUseCaseImpTest {
     private val testDispatcher = StandardTestDispatcher()
 
     @Before
     fun setUp() {
-
         Dispatchers.setMain(testDispatcher)
     }
 
@@ -34,31 +32,30 @@ class ProductsUseCaseImpTest {
     }
 
     @Test
-    fun `fetch products successfully`() = runTest {
+    fun `fetch product details successfully`() = runTest {
         val repository = SuccessFakeRepository()
-        val useCase = ProductsUseCaseImp(repository)
+        val useCase = ProductDetailsUseCaseImp(repository)
+
+        assertTrue(useCase("1").first() is APIState.Loading)
 
 
-        assertTrue(useCase().first() is APIState.Loading)
-
-        val apiState = useCase().drop(1).first()
+        val apiState = useCase("1").drop(1).first()
         assertTrue(apiState is APIState.Success)
-        assertTrue((apiState as APIState.Success).data.isNotEmpty())
+        assertTrue((apiState as APIState.Success).data.id == "1")
+
     }
 
     @Test
-    fun `fetch products unsuccessfully`() = runTest {
+    fun `fetch product details unsuccessfully`() = runTest {
         val repository = FailFakeRepository()
-        val useCase = ProductsUseCaseImp(repository)
+        val useCase = ProductDetailsUseCaseImp(repository).invoke("1")
 
 
-        assertTrue(useCase().first() is APIState.Loading)
+        assertTrue(useCase.first() is APIState.Loading)
 
-        val apiState = useCase().drop(1).first()
+        val apiState = useCase.drop(1).first()
         assertTrue(apiState is APIState.Error)
         assertTrue((apiState as APIState.Error).apiError.message == repository.errorMessage)
     }
-
-
 
 }
