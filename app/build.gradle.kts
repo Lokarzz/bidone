@@ -18,5 +18,5 @@ android {
 }
 
 dependencies {
-
+    implementation(projects.feature.products)
 }

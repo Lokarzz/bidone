@@ -21,7 +21,10 @@ import com.bidone.common.composables.image.AppImage
 
 @Composable
 fun ProductItem(
-    modifier: Modifier = Modifier, image: String, title: String, body: String
+    modifier: Modifier = Modifier,
+    image: String,
+    title: String,
+    body: String,
 ) {
 
     Card(modifier = modifier) {
