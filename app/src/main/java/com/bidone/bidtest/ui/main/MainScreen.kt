@@ -8,6 +8,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
+import com.bidone.productdetails.productDetailsScreen
+import com.bidone.productdetails.toProductDetailsScreen
 import com.bidone.products.Products
 import com.bidone.products.productsScreen
 
@@ -24,9 +26,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
         ) {
             productsScreen(
                 modifier = Modifier.fillMaxSize(),
-                onItemPress = {},
+                onItemPress = navController::toProductDetailsScreen,
                 innerPadding = innerPadding
             )
+            productDetailsScreen(modifier = Modifier, innerPadding = innerPadding)
         }
     }
 }

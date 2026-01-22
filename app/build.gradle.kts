@@ -19,4 +19,5 @@ android {
 
 dependencies {
     implementation(projects.feature.products)
+    implementation(projects.feature.productdetails)
 }

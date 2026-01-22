@@ -3,7 +3,7 @@ package com.bidone.products
 import com.bidone.domain.model.apistate.APIError
 import com.bidone.domain.model.apistate.APIState
 import com.bidone.domain.model.product.ProductUI
-import com.bidone.domain.usecase.ProductsUseCase
+import com.bidone.domain.usecase.products.ProductsUseCase
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

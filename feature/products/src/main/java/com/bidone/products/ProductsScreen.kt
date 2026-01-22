@@ -23,7 +23,7 @@ import com.bidone.common.composables.item.ProductItem
 import com.bidone.common.preview.DevicePreviews
 import com.bidone.domain.model.apistate.APIState
 import com.bidone.domain.model.product.ProductUI
-import com.bidone.domain.usecase.ProductsUseCase
+import com.bidone.domain.usecase.products.ProductsUseCase
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.Serializable

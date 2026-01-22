@@ -2,7 +2,7 @@ package com.bidone.products
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.bidone.domain.usecase.ProductsUseCase
+import com.bidone.domain.usecase.products.ProductsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

@@ -1,7 +1,6 @@
 package com.bidone.domain.usecase.products
 
 import com.bidone.domain.model.apistate.APIState
-import com.bidone.domain.usecase.ProductsUseCaseImp
 import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.flow.drop
 import kotlinx.coroutines.flow.first
