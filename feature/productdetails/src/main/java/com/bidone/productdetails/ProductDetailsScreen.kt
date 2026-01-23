@@ -97,7 +97,7 @@ internal fun ProductDetailsScreen(
                 )
             }
             item {
-                Spacer(modifier = Modifier.size(innerPadding.calculateBottomPadding()))
+                Spacer(modifier = Modifier.size(innerPadding.calculateBottomPadding() + 64.dp))
             }
         }
         Column(modifier = Modifier) {
@@ -118,6 +118,7 @@ internal fun ProductDetailsScreen(
             BottomBar(
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
+                    .background(MaterialTheme.colorScheme.background)
                     .padding(bottom = innerPadding.calculateBottomPadding()),
                 price = (uiState.productDetailsAPIState as APIState.Success<ProductDetailsUI>).data.price,
                 onAddToCart = {})
