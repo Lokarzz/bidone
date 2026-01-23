@@ -24,6 +24,9 @@ internal class SuccessFakeApiService : APIService {
         portraitImage = "",
         price = 0f,
         likeCount = 0,
+        shortDescription = "",
+        bannerImage = "",
+        image = "",
     )
 
     override suspend fun fetchProducts(): ProductsResponse {

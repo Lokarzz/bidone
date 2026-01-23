@@ -15,6 +15,7 @@ internal class SuccessFakeProductsUseCase : ProductsUseCase {
             name = "Product $it",
             image = "",
             shortDescription = "",
+            price = 0f,
         )
     }
 

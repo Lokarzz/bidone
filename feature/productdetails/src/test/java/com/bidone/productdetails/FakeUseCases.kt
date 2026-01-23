@@ -20,8 +20,12 @@ internal class SuccessFakeProductDetailsUseCase : ProductDetailsUseCase {
                     ProductDetailsUI(
                         id = id,
                         name = "Product Name",
-                        longDescription = "asdf",
+                        longDescription = "",
                         bannerImage = "",
+                        shortDescription = "",
+                        image = "",
+                        price = 0f,
+                        likes = 0
                     )
                 )
             )

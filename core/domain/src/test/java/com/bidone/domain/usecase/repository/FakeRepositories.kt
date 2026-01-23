@@ -30,7 +30,10 @@ internal class SuccessFakeRepository : ProductsRepository {
                 description = "description",
                 portraitImage = "portraitImage",
                 price = 12f,
-                likeCount = 12
+                likeCount = 12,
+                shortDescription = "",
+                bannerImage = "",
+                image = ""
             )
         )
     }
