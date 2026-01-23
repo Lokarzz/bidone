@@ -10,6 +10,7 @@
 
 ## Architecture
 - MVI (Model-View-Intent)
+- Domain Layer
 - Modularization 
 
 ## Tools
